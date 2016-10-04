@@ -52,6 +52,7 @@ module.exports = function(app, config) {
         app.locals.root_url = "http://localhost:3000";
         
     }else{
+        app.locals.root_url = "http://whimsy.server.soixanteseize-lab.com";
         //app.locals.root_url = "http://krogen.fr";
         //app.locals.root_admin_url = "http://admin.krogen.fr";
     }
