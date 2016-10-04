@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    .container-fluid
+        .page-heading
+            h1
+                span.title #{title}
+                
+    .row
+        .container-fluid
+            each p in posts
+                - p.image = p.enfants[0].image;
+                - p.url = "/c/"+p.category+"/"+p.slug;
+                include posts/card-3-category

@@ -1,0 +1,43 @@
+extends ../layout
+
+block header
+    include ../inc/admin-nav
+    
+prepend content
+
+    section.submit
+        //pre #{user}
+        h3= title 
+        
+        form(name="submit", action="/admin/users/new/", method="POST")
+        
+            div.form-group
+                label(for="first_name") Nom
+                input(type="text", class="form-control", name="name" placeholder="" value="")
+
+            div.form-group
+                label(for="email") E-mail
+                input(type="email", class="form-control", name="email" placeholder="" value="")
+
+            div.form-group
+                label(for="user_type") Type
+                select(name="user_type", class="form-control")
+                    option(value="" disabled="true" selected="true") Selectionnez
+                    option(value="admin") Admin
+                    option(value="invite") Invité
+            
+            hr
+            div.form-group 
+                h3 
+                    span Posts 
+                    a(href="/admin/posts/posts-in-table" class="ajax btn btn-info" data-target="#modal_posts" data-input-target="post_in") Afficher les posts
+                -var cl = "post_in";
+                //-var enfants = posts;
+                include ../posts/posts-enfants-table
+
+            div.form-group
+                input(type="submit", class="btn btn-lg btn-primary btn-block", value="Submit")
+
+        
+        
+            

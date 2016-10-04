@@ -1,0 +1,22 @@
+-var style = "";
+-if(post.style == "card_h_trqs")style = "bg_trqs";
+-else if(post.style == "card_h_mrrn")style = "bg_mrrn";
+-else style = "";
+article(class="clearfix card-h #{style}")
+    //pre #{post}
+    .mid
+        
+        div.card-img(style="background-image:url(#{root_url}/uploads/#{post.media.filename})")
+        div.card-content.card-content-img.abslt
+            if post.subtitle
+                if post.subtitle
+                    p.surtitre.ts #{post.subtitle}
+                .sep155
+                h3.ts #{post.title}
+                .sep60
+                if post.link_label != ""
+                    a(href="#{post.link}" class="btn btn_lg btn_block bg_trqs ts_light") #{post.link_label}
+    .mid
+        .align_vh
+            div.card-content
+                p !{post.texte}

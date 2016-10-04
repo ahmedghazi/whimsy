@@ -1,0 +1,11 @@
+article.col-md-6
+    a(href="#{p.link}", target="")
+        .card(role="button")
+            -var bg_url = root_url+'/uploads/'+p.media.filename;
+            .card-img.anime_md(style="background-image:url(#{bg_url});")
+            .card-content
+                .align_vh
+                    div.w100
+                        h3.anime.ts !{p.texte}
+                        if p.subtitle
+                            p.f24.anime.ts !{p.subtitle}

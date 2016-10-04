@@ -1,0 +1,23 @@
+extends ../layout-security
+
+prepend content
+    section
+        article
+            ddiv.row
+                .col-md-4.col-md-offset-4
+                    if errors
+                        - errors.forEach(function(error){
+                            p.text-danger #{error.message}
+                        - });
+                    form(action="/security/register", method="POST")
+                        div.form-group
+                            label(for="name")
+                            input.form-control(type="text", name="name", id="name", placeholder="Name")
+                        div.form-group
+                            label(for="email")
+                            input.form-control(type="email", name="email", id="email", placeholder="Email", value=email)
+                        div.form-group
+                            label(for="password")
+                            input.form-control(type="password", name="password", id="password", placeholder="Password")
+                        
+                        button.btn.btn-primary #{title}

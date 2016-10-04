@@ -1,0 +1,27 @@
+extends ../layout
+
+block header
+    include ../inc/admin-nav
+    
+prepend content
+    .row 
+        .col-md-12 
+            section.submit
+            
+                form(name="submit", action="/admin/attachments/new", method="post" enctype="multipart/form-data")
+                    
+                    h3= title
+                    //pre #{user}
+                    //pre #{jour}
+
+                    div.form-group
+                        label(for="plat_signature") Media
+                        div.form-inline
+                            input(type="file" name="media" accept="image/*")
+
+                    div.form-group     
+                        input(type="hidden", name="uploaded_by", value="#{user._id}")           
+                        input(type="submit", class="btn btn-lg btn-primary btn-block", value="Submit")
+
+
+

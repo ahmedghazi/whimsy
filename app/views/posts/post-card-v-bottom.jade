@@ -1,0 +1,18 @@
+article.col-md-4.card-v.card-v-bottom
+    a(href="#{p.link}")
+        .article_inner
+            if p.media
+                -var bg_url = root_url+'/uploads/'+p.media.filename;
+                .card-img.anime_md(style="background-image:url(#{bg_url});")
+            //.card-content.anime
+            //    .caret-top
+            //    h3.trqs.f30.anime
+            //        strong !{p.texte}
+
+            .card-content.anime
+                .align_vh2
+                    div
+                        .caret.caret-top
+                        h3.trqs.f30.anime
+                            strong !{p.texte}
+                        

@@ -1,0 +1,19 @@
+extends ../layout
+
+block header
+    include ../inc/admin-nav
+        
+block content
+
+    h2 
+        span #{title} 
+        a(href="/admin/users/new" class="btn btn-primary") Ajouter
+    hr
+
+    div.clearfix
+   
+    section
+        //pre #{posts}
+       
+        include users-table    
+        

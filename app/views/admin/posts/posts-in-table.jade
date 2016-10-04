@@ -1,0 +1,23 @@
+table(id="media_select" class="table table-striped #{cl}")
+    thead
+        tr.panel.panel-default
+            td Nom 
+            td Date  
+            td Type 
+            td Status
+            td Actions
+    tbody
+    if enfants
+        each enfant in enfants
+            tr(id="#{enfant._id}")
+                td #{enfant.title}
+                        
+                td #{moment(enfant.date).format('DD/MM/YYYY')}
+
+                td #{enfant.post_type}
+                td #{enfant.post_status}
+                td
+                    div.btn-group
+                        input(type="hidden" name="posts_in[]" value="#{enfant._id}")
+                        input(type="button" class="btn btn-primary media-select" data-id="#{enfant._id}" value="Select")
+                        input(type="button" class="btn btn-danger media-remove" data-id="#{enfant._id}" value="Remove")

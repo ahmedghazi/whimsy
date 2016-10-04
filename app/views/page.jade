@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    .row
+        .container-fluid
+            .col-md-9.page-heading
+                h1.title #{title}
+                p.dates Du <strong>#{moment(post.from).format('DD.MM.YYYY')}</strong> Au <strong>#{moment(post.to).format('DD.MM.YYYY')}</strong>
+            
+            .col-md-3.page-action
+                button(type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#modal_upload")
+                    span
+                        i.fa.fa-upload  
+                    span  Upload
+                    
+      
+
+
+    for post2D in posts2D 
+        .row
+            .container-fluid      
+                for p in post2D
+                    include posts/card-3
+
+    include modal

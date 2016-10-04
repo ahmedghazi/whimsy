@@ -1,0 +1,16 @@
+article.col-md-12.card-full
+    .row
+    
+        .container-fluid
+            .col-md-9
+                -var image = root_url+'/uploads/'+post.image.filename;
+                img(src="#{image}")
+            .col-md-3
+                .scroll-pane
+                    h4 #{post.title}
+                    p.dates Du <strong>#{moment(post.from).format('DD.MM.YYYY')}</strong> Au <strong>#{moment(post.to).format('DD.MM.YYYY')}</strong>
+                    p !{post.texte}
+                    
+                    hr
+                    
+                    include comments

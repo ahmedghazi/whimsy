@@ -1,0 +1,26 @@
+#upload
+    h3 Ajouter une image
+    form(method="post" class="upload" action="/api/#{post._id}/upload")
+        .form-group
+            input(type="text", class="form-control", name="title", placeholder="Titre", value="")
+        
+        .row
+            .col-md-6
+                .form-group
+                    input(type="date", class="form-control", name="from" placeholder="Du" value="2016-01-01")
+            .col-md-6
+                .form-group
+                    input(type="date", class="form-control", name="to" placeholder="Au" value="2016-01-01")
+
+        .form-group
+            textarea(name="texte" class="form-control" placeholder="Description" rows="5")
+
+        .form-group
+            label(for="plat_signature") Media
+            .form-inline
+                input(type="file" name="media" accept="image/*")
+
+        .form-group.noma 
+            input(type="hidden" name="post_type" value="image")
+            input(type="hidden" name="uploaded_by" value="#{user._id}")
+            input(type="submit", class="btn btn-lg btn-primary btn-block", value="Déverser")

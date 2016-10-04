@@ -1,0 +1,10 @@
+article.col-md-4.card-v
+    a(href="/best-of")
+        .article_inner
+            if p.media
+                -var bg_url = root_url+'/uploads/'+p.media.filename;
+                .card-img.anime_md(style="background-image:url(#{bg_url});")
+            .card-content.anime
+                .caret-top
+                h3.trqs.f30.anime
+                    strong !{p.texte}

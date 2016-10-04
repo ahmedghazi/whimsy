@@ -1,0 +1,42 @@
+.banner-carousel
+    .carousel.slide(id="carousel" data-ride="carousel" data-interval="8000")
+        -var len = carousel.enfants.length;
+        
+        .carousel-inner(data-len="#{len}")
+            -var c = 0;
+            each p in carousel.enfants 
+                //pre #{p}
+                -var cl = c == 0 ? "active" : "";
+                .item(class="#{cl}")
+                    .item-img
+                        .card-img(style="background-image:url(#{root_url}/uploads/#{p.media.filename})")
+
+                    .item-content
+                        .align_vh
+                            div.text-center
+                                h2.ts !{p.title}
+                                p.ts !{p.texte}
+                                
+                                p
+                                    if p.link_label != ""
+                                        .sep12
+                                        a(href="#{p.link}" class="btn btn-lg btn-primary btn-block bg_trqs ts_light" target="") #{p.link_label}
+                                p
+                                    if p.video
+                                        input(type="button" class="btn btn-lg btn-primary btn-block btn_modal btn_modal_video" value="#{p.subtitle}" data-url="#{p.video}")
+                -c++;    
+                
+
+        a.left.carousel-control(href="#carousel" role="button" data-slide="prev")
+            .caret.caret-left
+                span
+        a.right.carousel-control(href="#carousel" role="button" data-slide="next")
+            .caret.caret-right
+                span
+
+        ol.carousel-indicators
+            - var n = 0
+            while n < c
+                -var cl = n == 0 ? "active" : "";
+                li(data-target="#carousel" data-slide-to="#{n}" class="#{cl}")
+                -n++

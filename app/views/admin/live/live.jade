@@ -1,0 +1,56 @@
+extends ../layout
+
+block header
+    include ../inc/admin-nav
+        
+block content
+    .row 
+        .col-md-12
+            //pre #{post}
+            .row
+                .col-md-6
+                    h2 #{title} 
+                .col-md-3.text-right
+                    p 
+                        strong PUBLIC  
+                    input(type="checkbox" name="go-public" checked=post.post_status=="public")
+                .col-md-3.text-right
+                    p 
+                        strong GO LIVE  
+                    input(type="checkbox" name="go-live" checked=post.live==true)
+            hr
+   
+            section(id="#{post._id}")
+            
+                table.table.table-striped
+                    thead
+                        tr.panel.panel-default
+                            td Nom 
+                            td Email 
+                            td Jour
+                            td Status
+                            td État 
+                            td Actions
+                    tbody
+
+                    each user in chefs
+                        //pre #{user.jour}
+                        -var cl = "";
+                        -if(user.status == "live")cl = "bg-danger";
+                        -if(user.status == "post_live")cl = "bg-info";
+                        tr(class="#{cl}")
+                            td #{user.first_name} #{user.last_name}
+                            td #{user.email}
+                            td #{moment(user.jour.date).format('LL')} - #{user.jour.title}
+                            td #{user.status}
+                            td #{user.etat}
+                            td
+                                div.btn-group
+                                    a(href="/admin/chefs/edit/#{user._id}" class="btn btn-primary") Edit
+                                    
+                                    
+                
+                                    
+                                    
+
+        

@@ -1,0 +1,39 @@
+doctype html
+html(lang='fr')
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width')
+        title= title
+        block css
+            link(rel='stylesheet', href='/css/bootstrap.min.css')
+            link(rel='stylesheet', href='/css/bootstrap-switch.min.css')
+            link(rel='stylesheet', href='//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css')
+            link(rel='stylesheet', href='/css/style-admin.css')
+        block js
+            if ENV_DEVELOPMENT
+                script(src='http://localhost:35729/livereload.js')
+    body.admin
+        block header
+            include inc/admin-nav
+        
+        .container-fluid
+            .row
+                .col-sm-3.col-md-2.aside
+                    include aside
+                .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+                    .row
+                        .col-md-12
+                            block content
+
+        block footer
+            include footer
+
+        include modal
+
+        script(src='/js/vendor/jquery.min.js')
+        script(src='//code.jquery.com/ui/1.11.4/jquery-ui.js')
+        script(src='/js/vendor/bootstrap-switch.min.js')
+        script(src='/js/vendor/bootstrap.min.js')
+        script(src='/js/admin/formController.js')
+        script(src='/js/admin/functions.js')
+

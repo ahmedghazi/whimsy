@@ -1,0 +1,12 @@
+#comments
+    .comments
+        each comment in post.comments
+            include comment
+
+    form(method="post" action="/api/#{post._id}/comment")
+        div.form-group
+            textarea(name="texte" class="form-control" rows="2" placeholder="Votre commentaire")
+        div.form-group.noma     
+            input(type="hidden", name="author", value="#{user._id}")          
+            input(type="hidden", name="parent", value="#{post._id}")          
+            input(type="submit", class="btn btn-lg btn-primary btn-block", value="Publier")             

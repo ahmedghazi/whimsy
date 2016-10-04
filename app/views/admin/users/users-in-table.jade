@@ -1,0 +1,23 @@
+table(id="media_select" class="table table-striped #{cl}")
+    thead
+        tr.panel.panel-default
+            td Date d'inscription
+            td Nom
+            td Email
+            td Type
+            td Actions
+            
+    tbody
+    if users
+        each user in users
+            tr(id="#{user._id}")
+                td #{moment(user.createdAt).format('MMMM Do YYYY')}
+                td #{user.name}
+                td #{user.email}
+                td #{user.user_type}
+                td.btn-group
+                    input(type="hidden" name="users_in[]" value="#{user._id}")
+                    input(type="button" class="btn btn-primary media-select" data-id="#{user._id}" value="Select")
+                    input(type="button" class="btn btn-danger media-remove" data-id="#{user._id}" value="Remove")
+            
+            

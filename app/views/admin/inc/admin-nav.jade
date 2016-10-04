@@ -1,0 +1,18 @@
+.navbar.navbar-inverse.navbar-fixed-top
+    .container-fluid
+        header
+            div.identite.pull-left
+                a(href="/admin") WHIMSY
+
+
+            ul.nav.navbar-nav.navbar-right
+                if admin
+                    li
+                        a(href="#" class="") #{admin.email}
+                    li
+                        a(href="/" class="" target="_blank") Voir le site >
+
+    
+
+
+    

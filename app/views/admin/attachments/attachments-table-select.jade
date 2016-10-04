@@ -1,0 +1,22 @@
+table(id="media_select" class="table table-striped #{cl}")
+    thead
+        tr.panel.panel-default
+            td Visuel #{cl}
+            td Nom 
+            td Date 
+            td Actions
+            
+    tbody
+    
+        if attachment
+            tr
+                td
+                    img(src="#{root_url}/uploads/#{attachment.filename}" width="100" height="")
+                td #{attachment.originalname}
+                td #{moment(attachment.date_created).format('DD/MM/YYYY')}
+                td
+                    div.btn-group
+                        input(type="hidden" name="#{cl}" value="#{attachment._id}")
+                        input(type="button" class="btn btn-primary media-select" data-id="#{attachment._id}" value="Select")
+                        input(type="button" class="btn btn-danger media-remove" data-id="#{attachment._id}" value="Remove")
+                

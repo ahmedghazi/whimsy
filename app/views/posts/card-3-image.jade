@@ -1,0 +1,7 @@
+article.col-md-3(class="card" id="#{p._id}")
+    //pre #{p}
+    if p.image
+        -var image = root_url+'/uploads/'+p.image.filename;
+        .card-img.anime_md(style="background-image:url(#{image});")
+    .card-content
+        h3.anime !{p.title}

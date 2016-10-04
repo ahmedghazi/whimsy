@@ -1,0 +1,12 @@
+article.col-md-4.card-v.card-v-top
+    a(href="#{p.link}")
+        .article_inner
+            .card-content.anime
+                .align_vh2
+                    div
+                        h3.trqs.f30.anime
+                            strong !{p.texte}
+                        .caret.caret-bottom
+            if p.media
+                -var bg_url = root_url+'/uploads/'+p.media.filename;
+                .card-img.anime_md(style="background-image:url(#{bg_url});")

@@ -1,0 +1,27 @@
+// Example model
+
+var mongoose = require('mongoose'),
+  	Schema = mongoose.Schema;
+
+var PostsSchema = new Schema({
+	post_type: String,
+	post_status: {
+        type: String, default: "brouillon"
+    },
+	category: String,
+	title: String,
+	texte: String,
+	from: Date,
+	to: Date,
+	enfants: [{type: Schema.Types.ObjectId, ref: 'Posts'}],
+	image: {type: Schema.Types.ObjectId, ref: 'Attachments'},
+    users_in: [{type: Schema.Types.ObjectId, ref: 'Users'}],
+    comments: [{type: Schema.Types.ObjectId, ref: 'Comments'}],
+	slug: String,
+	link: String,
+	post_order: Number,
+},{
+    timestamps: true
+});
+
+mongoose.model('Posts', PostsSchema);

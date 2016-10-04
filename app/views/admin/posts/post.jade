@@ -1,0 +1,11 @@
+article
+    //pre #{p}
+    .row
+        .col-md-6
+            h2 #{p.title}
+            p #{moment(p.date).format('DD/MM/YYYY')}
+            p !{p.texte}
+
+        .col-md-6
+            img(src="/uploads/#{p.media.filename}")
+

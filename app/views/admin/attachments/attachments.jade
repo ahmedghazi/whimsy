@@ -1,0 +1,19 @@
+extends ../layout
+
+block header
+    include ../inc/admin-nav
+        
+block content
+    
+    .row 
+        .col-md-12
+            h2 
+                span #{title} 
+                a(href="/admin/attachments/new" class="btn btn-primary") Ajouter
+            hr
+
+    .row 
+        .col-md-12   
+            section
+                //pre #{posts}
+                include attachments-table

@@ -1,0 +1,76 @@
+extends ../layout
+
+block header
+    include ../inc/admin-nav
+
+prepend content
+    
+    section.submit
+        //pre #{post}
+        article
+            div.createbox
+                form(name="submit", action="/admin/jours/edit/#{post._id}", method="post")
+                    
+                    h3= title
+
+                    div.form-group
+                        label(for="title") Titre
+                        input(type="text", class="form-control", name="title", placeholder="Titre", value="#{post.title}")
+                    
+                    div.form-group
+                        label(for="date") Date
+
+                        input(type="date", class="form-control", name="date" placeholder="Date" value="#{moment(post.date).format('YYYY-MM-DD')}")
+                        
+                    div.form-group
+                        label(for="status") Status
+                        select(name="status", class="form-control")
+                            option(value="brouillon" selected=post.status=="brouillon") Brouillon
+                            option(value="public" selected=post.status=="public") Public
+                    .row
+                        .col-md-4
+                            div.form-group
+                                label(for="chefs_count") Espace classic
+                                input(type="number", class="form-control", name="espace_classic_count" placeholder="Chefs" value="#{post.espace_classic_count}")
+                    
+                        .col-md-4
+                            div.form-group
+                                label(for="convives") Espace Lounge
+                                input(type="number", class="form-control", name="espace_lounge_count" placeholder="Convives" value="#{post.espace_lounge_count}")
+                    
+                        .col-md-4
+                            div.form-group
+                                label(for="convives") Espace Table d'hôte
+                                input(type="number", class="form-control", name="espace_table_d_hote_count" placeholder="Convives" value="#{post.espace_table_d_hote_count}")
+
+                    div.form-group
+                        label(for="convives") Convives Total
+                        input(type="number", class="form-control", name="convives_count" placeholder="Convives" value="#{post.convives_count}")
+
+                    hr
+
+                    div.form-group                
+                        input(type="submit", class="btn btn-lg btn-primary btn-block", value="Submit")
+
+                hr
+
+                h4 Espace classique (#{post.espace_classic_count}/20)
+                -var convives = post.espace_classic_convives
+                include ../convives/convives-table
+
+                hr
+
+                h4 Espace lounge (#{post.espace_lounge_count}/4)
+                -var convives = post.espace_lounge_convives
+                include ../convives/convives-table
+
+                hr
+
+                h4 Espace table d'hôte (#{post.espace_table_d_hote_count}/6)
+                //pre #{post.espace_table_d_hote_convives}
+                -var convives = post.espace_table_d_hote_convives
+                include ../convives/convives-table
+
+                hr
+
+                a(href="/admin/jours/rappel/#{post._id}" class="btn btn-success") Lancer le rappel
