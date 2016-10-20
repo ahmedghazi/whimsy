@@ -12,7 +12,7 @@ div.modal.fade#modal_upload(role="dialog")
                     form(method="post" class="upload" action="/api/#{post._id}/upload", enctype="multipart/form-data")
                         
                         .form-group
-                            label(for="plat_signature") Media
+                            
                             .form-inline
                                 input(type="file" name="media[]" multiple accept="image/*")
 

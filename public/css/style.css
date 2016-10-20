@@ -157,6 +157,8 @@ header {
 h1 {
   font-size: 34.34px;
   font-weight: bold;
+  margin-top: -9px;
+  margin-bottom: 5px;
 }
 .nav li {
   width: 50%;
@@ -193,6 +195,9 @@ footer p {
 }
 .page-heading p {
   margin-bottom: 0;
+}
+p.texte {
+  max-width: 50%;
 }
 .dates {
   font-weight: 100;
