@@ -1,0 +1,40 @@
+head
+    meta(content='text/html; charset=utf-8', http-equiv='Content-Type')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+
+    style(type="text/css"): include mail.css
+
+body(style='padding: 0; width: 100% !important; background-color:#fff; -webkit-text-size-adjust: 100%; margin: 0; -ms-text-size-adjust: 100%;', marginheight='0', marginwidth='0')
+    //center(style="background-color:#f0eee7;")
+    table(cellpadding='0', cellspacing='0', style='*width: 600px; padding: 0; margin: 0 auto; padding:0;', border='0')
+            
+                    
+            
+        tr(class="section")
+            td(valign='top', cellpadding='0', cellspacing='0')
+                
+                block content
+              
+    table(cellpadding='0', cellspacing='0', align='center', border='0' style="width:100%;")
+        tr(style='color: #000; font-size: 11px;')
+            td
+                table(cellpadding='0', cellspacing='0', style='width: 600px;  text-align:center;', border='0', align='center')
+                    tr(width='100%', height='100')
+                        td
+
+                            ul.connecteurs(style="display: inline-block; text-align: center; padding: 0;margin: 0")
+                                li(style="float: left; list-style: none; margin: 0 10px;")
+                                    a(href="#" target="_blank") 
+                                        img(src="#{root_url}/img/twitter.png" height="40")
+                                li(style="float: left; list-style: none; margin: 0 10px;")
+                                    a(href="#" target="_blank") 
+                                        img(src="#{root_url}/img/facebook.png" height="40")
+                                li(style="float: left; list-style: none; margin: 0 10px;")
+                                    a(href="#" target="_blank") 
+                                        img(src="#{root_url}/img/instagram.png" height="40")
+                            br 
+                            br 
+
+    div(style="display:none; white-space:nowrap; font:20px courier; line-height:0;") &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        

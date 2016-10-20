@@ -17,7 +17,10 @@ prepend content
                     div.form-group
                         label(for="plat_signature") Media
                         div.form-inline
-                            input(type="file" name="media" accept="image/*")
+                            input(type="file" name="media[]" multiple accept="image/*")
+                    div.form-group
+                        label(for="texte") Description
+                        textarea(name="texte" class="form-control" rows="5")
 
                     div.form-group     
                         input(type="hidden", name="uploaded_by", value="#{user._id}")           

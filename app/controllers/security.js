@@ -127,13 +127,13 @@ router.get('/register', function (req, res, next) {
 });
 
 router.post('/register', function (req, res, next) {
-    Users.register(new Users({ email : req.body.name }), req.body.password, function(err, account) {
+    Users.register(new Users({ email : req.body.email }), req.body.password, function(err, account) {
         if (err) {
             return res.render("security/register", {info: "Sorry. That username already exists. Try again."});
         }
 
         passport.authenticate('local')(req, res, function () {
-            res.redirect('/admin');
+            res.redirect('/');
         });
     });
 });

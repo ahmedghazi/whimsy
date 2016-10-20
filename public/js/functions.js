@@ -124,6 +124,28 @@ function bindEvents(){
 
 }
 
+function uploadFiles(files, url, callback) {
+    var data = new FormData();
+    $.each(files, function(key, value) {
+        data.append('image-' + key, value);
+    });
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: data,
+        cache: false,
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        success: function(data, textStatus, jqXHR)  {
+            callback(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            callback({ errors: [textStatus] })
+        }
+    });
+}
+
 function setUpVars(){
 	var LEN = $("article.card").length;
 	var NUMLINES = 0;

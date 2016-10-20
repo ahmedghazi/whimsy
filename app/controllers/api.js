@@ -3,6 +3,7 @@ var express = require('express'),
     mongoose = require('mongoose'),
     _app,
     urlSlug = require('url-slug'),
+    async = require('async'),
     Posts = mongoose.model('Posts'),
     Users = mongoose.model('Users'),
     Posts = mongoose.model('Posts'),
@@ -75,10 +76,10 @@ router.get('/setup', function (req, res, next) {
 
 router.get('/image/:id', function (req, res, next) {
     //console.log("dddd")
-    return Posts
+    return Attachments
         .findOne({_id: req.params.id})
         .populate({
-            path:     'comments image',
+            path:     'comments uploaded_by',
             //options: { sort: { 'post_order': 1 } },      
             populate: { path:  'author', model: 'Users'}
         })
@@ -103,7 +104,7 @@ router.post('/:id/comment', function (req, res, next) {
         }
 
         var update = { $addToSet: {comments: comment._id } }
-        Posts.findOneAndUpdate({_id: req.body.parent}, update, {}, function (err, user, raw) {
+        Attachments.findOneAndUpdate({_id: req.body.parent}, update, {}, function (err, user, raw) {
             if (err) 
                 return res.json({sucess:false, err:err});
 
@@ -111,7 +112,7 @@ router.post('/:id/comment', function (req, res, next) {
                 .findOne({_id: comment._id})
                 .populate({path: 'author'})
                 .exec(function(err, com) {
-            
+            console.log(com)
                     return res.render('posts/comment', {
                         comment: com,
                         //user: comment.author
@@ -123,7 +124,7 @@ router.post('/:id/comment', function (req, res, next) {
         });
     });
 });
-
+/*
 router.post('/:id/upload', upload.single("media"), function (req, res, next) {
     //console.log(req.file)
     //return req.file;
@@ -165,4 +166,45 @@ router.post('/:id/upload', upload.single("media"), function (req, res, next) {
         });
         //res.redirect('/admin/attachments/');
     });
+});
+*/
+var uploadAny = upload.any();
+router.post('/:id/upload', function (req, res, next) {
+    //console.log(req.file)
+    console.log(req.files)
+    uploadAny(req, res, function (err) {
+        if (err) return next(err);
+        //return req.files;
+        var images = [];
+        async.each(req.files, function(file, callback) { 
+            var attachment = new Attachments(file);
+            attachment.uploaded_by = req.body.uploaded_by;
+            attachment.save(function(err) {
+                if (err) {
+                    console.log(_err)
+                    return res.send(err);
+                }
+    
+                //console.log(file)
+                images.push(attachment._id)
+                callback();
+                
+            });
+
+        }, function(err) {
+            if (err) return next(err);
+console.log(images)
+            var update = { $pushAll: {images: images } }
+            Posts.findOneAndUpdate({_id: req.body.parent}, update, {}, function (err, post, raw) {
+                console.log(err, post, raw)
+                if (err) 
+                    return res.json({sucess:false, err:err});
+                console.log(post)
+                return res.json({sucess:true});
+            });
+
+            
+        });
+    });
+    
 });

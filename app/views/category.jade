@@ -9,6 +9,8 @@ block content
     .row
         .container-fluid
             each p in posts
-                - p.image = p.enfants[0].image;
-                - p.url = "/c/"+p.category+"/"+p.slug;
+               
+                - var image = p.images[0].filename;
+                - var url = "/c/"+p.category+"/"+p.slug;
+                //pre #{image}
                 include posts/card-3-category

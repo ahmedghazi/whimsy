@@ -25,13 +25,7 @@ prepend content
                             option(value="" disabled="true" selected="true") Selectionnez
                             option(value="brouillon" selected=post.post_status=="brouillon") Brouillon
                             option(value="public" selected=post.post_status=="public") Public
-                .col-md-4  
-                    div.form-group
-                        label(for="post_type") Type de post
-                        select(name="post_type", class="form-control")
-                            option(value="" disabled="true" selected="true") Selectionnez
-                            option(value="page" selected=post.post_type=="page") Page
-                            option(value="image" selected=post.post_type=="image") Image
+                
                 .col-md-4  
                     div.form-group
                         label(for="category") Catégorie
@@ -41,7 +35,12 @@ prepend content
                             option(value="Convoyages" selected=post.category=="Convoyages") Convoyages
                             option(value="technique" selected=post.category=="technique") Technique
                             option(value="reperages" selected=post.category=="reperages") Repérages
-            
+                
+                .col-md-4  
+                    div.form-group
+                        label(for="post_order") Ordre
+                        input(type="number", class="form-control", name="post_order" placeholder="" value="#{post.post_order}")
+
             .row
                 .col-md-6
                     div.form-group
@@ -60,21 +59,13 @@ prepend content
                 hr
                 div.form-group 
                     h3 
-                        span Pages enfant 
-                        a(href="/admin/posts/posts-table" class="ajax btn btn-info" data-target="#modal_posts" data-input-target="enfants") Afficher les enfants
-                    -var cl = "enfants";
-                    -var enfants = post.enfants;
-                    include posts-enfants-table
+                        span Images 
+                        a(href="/admin/attachments/attachments-table" class="ajax btn btn-info" data-target="#modal_image" data-input-target="images") Afficher les images  
+                    -var cl = "images";
+                    -var images = post.images;
+                    include posts-images-table
 
-            hr
-            div.form-group 
-                h3 
-                    span Images  
-                    a(href="/admin/attachments/attachments-table" class="ajax btn btn-info" data-target="#modal_image" data-input-target="media") Afficher les images
-                -var cl = "media";
-                -var attachment = post.image;
-                include ../attachments/attachments-table-select
-
+            
             hr
             div.form-group 
                 h3 

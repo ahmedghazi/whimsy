@@ -3,12 +3,18 @@ article.col-md-12.card-full
     
         .container-fluid
             .col-md-9
-                -var image = root_url+'/uploads/'+post.image.filename;
+                //pre #{post}
+                -var image = root_url+'/uploads/'+post.filename;
                 img(src="#{image}")
             .col-md-3
                 .scroll-pane
-                    h4 #{post.title}
-                    p.dates Du <strong>#{moment(post.from).format('DD.MM.YYYY')}</strong> Au <strong>#{moment(post.to).format('DD.MM.YYYY')}</strong>
+                    if post.title
+                        h4 #{post.title}
+                    else
+                        h4 #{post.originalname}
+                    p Par <i>#{post.uploaded_by.email}</i>
+                    if post.createdAt
+                        p.dates Du <strong>#{moment(post.createdAt).format('DD.MM.YYYY')}</strong>
                     p !{post.texte}
                     
                     hr

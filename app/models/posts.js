@@ -13,10 +13,11 @@ var PostsSchema = new Schema({
 	texte: String,
 	from: Date,
 	to: Date,
-	enfants: [{type: Schema.Types.ObjectId, ref: 'Posts'}],
+	//enfants: [{type: Schema.Types.ObjectId, ref: 'Attachments'}],
 	image: {type: Schema.Types.ObjectId, ref: 'Attachments'},
+	images: [{type: Schema.Types.ObjectId, ref: 'Attachments'}],
     users_in: [{type: Schema.Types.ObjectId, ref: 'Users'}],
-    comments: [{type: Schema.Types.ObjectId, ref: 'Comments'}],
+    
 	slug: String,
 	link: String,
 	post_order: Number,

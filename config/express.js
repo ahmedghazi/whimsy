@@ -49,7 +49,7 @@ module.exports = function(app, config) {
 
 
     if(os.homedir() == "/Users/ahmedghazi"){
-        app.locals.root_url = "http://localhost:3000";
+        app.locals.root_url = "http://localhost:3001";
         
     }else{
         app.locals.root_url = "http://whimsy.server.soixanteseize-lab.com";

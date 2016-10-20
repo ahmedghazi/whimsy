@@ -22,13 +22,7 @@ prepend content
                             option(value="" disabled="true" selected="true") Selectionnez
                             option(value="brouillon") Brouillon
                             option(value="public") Public
-                .col-md-4  
-                    div.form-group
-                        label(for="post_type") Type de post
-                        select(name="post_type", class="form-control")
-                            option(value="" disabled="true" selected="true") Selectionnez
-                            option(value="page") Page
-                            option(value="image") Image
+                
                 .col-md-4  
                     div.form-group
                         label(for="category") Catégorie
@@ -38,11 +32,11 @@ prepend content
                             option(value="Convoyages") Convoyages
                             option(value="technique") Technique
                             option(value="reperages") Repérages
-            
-            div.form-group
-                label(for="post_order") Ordre
-                input(type="number", class="form-control", name="post_order" placeholder="" value="0")
-            
+                .col-md-4  
+                    div.form-group
+                        label(for="post_order") Ordre
+                        input(type="number", class="form-control", name="post_order" placeholder="" value="0")
+                    
             .row
                 .col-md-6
                     div.form-group
@@ -55,24 +49,16 @@ prepend content
 
             div.form-group
                 label(for="texte") Texte
-                textarea(name="texte" class="form-control" rows="10")                
+                textarea(name="texte" class="form-control" rows="5")
                 
        
             hr
             div.form-group 
                 h3 
-                    span Sous Page  
-                    a(href="/admin/posts/posts-table" class="ajax btn btn-info" data-target="#modal_posts" data-input-target="enfants") Afficher les enfants
-                -var cl = "enfants";
+                    span Images 
+                    a(href="/admin/attachments/attachments-table" class="ajax btn btn-info" data-target="#modal_image" data-input-target="images") Afficher les images  
+                -var cl = "images";
                 //-var enfants = posts;
-                include posts-enfants-table
-
-            hr
-            div.form-group 
-                h3 
-                    span Images  
-                    a(href="/admin/attachments/attachments-table" class="ajax btn btn-info" data-target="#modal_image" data-input-target="image") Afficher les images
-                -var cl = "image";
                 include ../attachments/attachments-table-select
             
             hr
@@ -84,7 +70,8 @@ prepend content
                 //-var users = post.users_in;
                 include ../users/users-in-table
             hr
-            div.form-group                
+            div.form-group          
+                input(type="hidden" name="post_type" value="page")      
                 input(type="submit", class="btn btn-lg btn-primary btn-block", value="Submit")
 
 

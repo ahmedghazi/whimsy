@@ -49,7 +49,7 @@ router.get('/:category', function (req, res, next) {
         .find({category: req.params.category})
         //.populate({path:     'image'})
         .populate({
-            path:     'enfants', 
+            path:     'images', 
             options: { sort: { 'createdAt': -1 } },          
             populate: { path:  'image', model: 'Attachments'}
         })
@@ -69,7 +69,7 @@ router.get('/:category/:slug', userCan, function (req, res, next) {
     return Posts
         .findOne({slug: req.params.slug})
         .populate({
-            path:     'enfants', 
+            path:     'images', 
             options: { sort: { 'createdAt': -1 } },          
             populate: { path:  'image', model: 'Attachments'}
         })
@@ -78,7 +78,7 @@ router.get('/:category/:slug', userCan, function (req, res, next) {
 
             var posts2D;
             if(post)
-                posts2D = arrayTo2DArray(post.enfants, 4);
+                posts2D = arrayTo2DArray(post.images, 4);
 
             return res.render('page', {
                 title: post.title,

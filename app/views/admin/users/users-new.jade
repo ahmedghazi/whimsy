@@ -18,24 +18,15 @@ prepend content
             div.form-group
                 label(for="email") E-mail
                 input(type="email", class="form-control", name="email" placeholder="" value="")
-
-            div.form-group
-                label(for="user_type") Type
-                select(name="user_type", class="form-control")
-                    option(value="" disabled="true" selected="true") Selectionnez
-                    option(value="admin") Admin
-                    option(value="invite") Invité
             
-            hr
-            div.form-group 
-                h3 
-                    span Posts 
-                    a(href="/admin/posts/posts-in-table" class="ajax btn btn-info" data-target="#modal_posts" data-input-target="post_in") Afficher les posts
-                -var cl = "post_in";
-                //-var enfants = posts;
-                include ../posts/posts-enfants-table
+            div.form-group
+                label(for="last_name") Password
+                input(type="text", class="form-control", name="password" placeholder="" value="")
+            
+            
 
             div.form-group
+                input(type="hidden" name="user_type" value="invite")
                 input(type="submit", class="btn btn-lg btn-primary btn-block", value="Submit")
 
         

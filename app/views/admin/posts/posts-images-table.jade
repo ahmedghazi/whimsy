@@ -1,0 +1,24 @@
+table(id="media_select" class="table table-striped #{cl}")
+    thead
+        tr.panel.panel-default
+            td Visuel 
+            td Nom 
+            td Date  
+            td Uploadé par  
+            td Actions
+    tbody
+    if images
+        each image in images
+            tr(id="#{image._id}")
+            td 
+                img(src="#{root_url}/uploads/#{image.filename}" width="100" height="")
+            td #{image.originalname}
+            td #{moment(image.date_created).format('DD/MM/YYYY')}
+            td 
+                if image.uploaded_by
+                    span #{image.uploaded_by.email}
+            td.btn-group
+                input(type="hidden" name="images[]" value="#{image._id}")
+                input(type="button" class="btn btn-primary media-select" data-id="#{image._id}" value="Select")
+                input(type="button" class="btn btn-danger media-remove" data-id="#{image._id}" value="Remove")
+        

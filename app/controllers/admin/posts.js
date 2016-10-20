@@ -9,7 +9,7 @@ module.exports = function (app) {
 };
 
 var isAuthenticated = function (req, res, next) {
-    return next();
+    //return next();
     if (req.isAuthenticated())
         return next();
         res.redirect('/security/login');
@@ -138,27 +138,17 @@ router.post('/new', function (req, res, next) {
 
 router.get('/edit/:id', function (req, res, next) {
     Posts
-        .find()
-        .sort({date_created: 'desc'})
-        //.populate({path: 'parent jours'})
-        .exec(function(err, posts) {
+        .findOne({_id: req.params.id})
+        .populate({path: 'images users_in'})
+        .exec(function(err, post) {
         //.find(function (err, posts) {
             if (err) return next(err);
 
-            Posts
-                .findOne({_id: req.params.id})
-                .populate({path: 'image enfants users_in'})
-                .exec(function(err, post) {
-                //.find(function (err, posts) {
-                    if (err) return next(err);
-
-                    return res.render('admin/posts/posts-edit', {
-                        title: 'Editer',
-                        posts: posts,
-                        post: post,
-                        admin: req.user
-                    });
-                });
+            return res.render('admin/posts/posts-edit', {
+                title: 'Editer',
+                post: post,
+                admin: req.user
+            });
         });
 
     

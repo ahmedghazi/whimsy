@@ -1,0 +1,28 @@
+extends layout
+
+block content
+    
+
+    table(cellpadding='0', cellspacing='0', width='600' style='text-align:center;', border='0', align='center')
+        tr(valign="top")
+            
+                
+            td(width='510' valign="middle")
+                
+                //- -----------------------------------------------------------------------------------
+                //- Only Edit Here
+                //- -----------------------------------------------------------------------------------
+                
+                h2 Salutations #{body.name} !
+                p(style="font-size:18px;color: #fff;")
+                    b Here is your TODOTRICKS.
+                br
+                br
+                p(style="font-size:18px;color: #fff!important;")
+                    b
+                        a(href="#{body.url}" style="color: #fff!important;") #{body.url}
+                br
+                br
+                p(style="font-size:18px;color: #fff;")
+                    b Land the all.
+                //- ----------------------------------------------------------------------------------

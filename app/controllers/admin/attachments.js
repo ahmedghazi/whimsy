@@ -1,6 +1,7 @@
 var express = require('express'),
     router = express.Router(),
     mongoose = require('mongoose'),
+    async = require('async'),
     Posts = mongoose.model('Posts'),
     Attachments = mongoose.model('Attachments'),
     multer  = require('multer'),
@@ -33,11 +34,11 @@ var express = require('express'),
     });
 
 module.exports = function (app) {
-    app.use('/admin/attachments', router);
+    app.use('/admin/attachments', isAuthenticated, router);
 };
 
 var isAuthenticated = function (req, res, next) {
-    return next();
+    //return next();
     if (req.isAuthenticated())
         return next();
         res.redirect('/security/login');
@@ -47,7 +48,7 @@ var isAuthenticated = function (req, res, next) {
 
 
 
-router.get('/all', isAuthenticated, function (req, res, next) {
+router.get('/all', function (req, res, next) {
     Attachments
         .find()
         .sort({date_created: 'desc'})
@@ -60,7 +61,7 @@ router.get('/all', isAuthenticated, function (req, res, next) {
     });
 });
 
-router.get('/', isAuthenticated, function (req, res, next) {
+router.get('/', function (req, res, next) {
     Attachments
         .find()
         .sort({date_created: 'desc'})
@@ -87,21 +88,56 @@ router.get('/new', function (req, res, next) {
 });
 
 
-
-router.post('/new', upload.single("media"), function (req, res, next) {
+var uploadAny = upload.any();
+router.post('/new', function (req, res, next) {
     //console.log(req.file)
-    var attachment = new Attachments(req.file);
-    attachment.uploaded_by = req.body.uploaded_by;
-    attachment.save(function(err) {
-        if (err) {
-            return res.send(err);
-        }
+    console.log(req.files)
+    uploadAny(req, res, function (err) {
+        if (err) return next(err);
+        //return req.files;
 
-        res.redirect('/admin/attachments/');
+        async.each(req.files, function(file, callback) { 
+            var attachment = new Attachments(file);
+            attachment.uploaded_by = req.body.uploaded_by;
+            attachment.save(function(err) {
+                if (err) {
+                    console.log(_err)
+                    return res.send(err);
+                }
+    
+                console.log(file)
+
+                callback();
+            });
+
+        }, function(err) {
+            if (err) return next(err);
+
+            res.redirect('/admin/attachments/');
+        });
     });
+    
 });
 
-router.get('/delete/:id', isAuthenticated, function (req, res, next) {
+router.get('/edit/:id', function (req, res, next) {
+    Attachments
+        .findOne({_id: req.params.id})
+        .populate({path: 'comments uploaded_by'})
+        .exec(function(err, post) {
+        //.find(function (err, posts) {
+            if (err) return next(err);
+
+            return res.render('admin/attachments/attachments-edit', {
+                title: 'Editer',
+                post: post,
+                admin: req.user
+            });
+        });
+
+    
+});
+
+router.get('/delete/:id', function (req, res, next) {
     Attachments.remove({
         _id: req.params.id
     }, function(err, post) {
@@ -124,7 +160,7 @@ router.post('/ajax-new', upload.single("file"), function (req, res, next) {
     });
 });
 
-router.get('/attachments-table', isAuthenticated, function (req, res, next) {
+router.get('/attachments-table', function (req, res, next) {
     Attachments
         .find()
         .sort({date_created: 'desc'})
