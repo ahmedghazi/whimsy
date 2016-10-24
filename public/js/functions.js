@@ -199,5 +199,5 @@ function format(){
 
 	var iH = $(".col-md-9").find("img").outerHeight();
 	console.log(iH)
-	$(".card-full").find(".col-md-3").css({"max-height": iH})
+	if(iH != 0)$(".card-full").find(".col-md-3").css({"max-height": iH})
 }
