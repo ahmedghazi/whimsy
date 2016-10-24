@@ -29,6 +29,9 @@ article p {
   /*padding-right: 0px;
     padding-left: 0px;*/
 }
+.identite a {
+  padding: 20px 0;
+}
 .aside {
   position: fixed;
   top: 51px;
@@ -106,4 +109,18 @@ select[size] {
 #modal_video .btn-default,
 #modal_video .videos-remove {
   display: none;
+}
+section.liste td .media-select {
+  display: none;
+}
+#modal_image td a.btn-default,
+#modal_image td a.btn-danger {
+  display: none;
+}
+section.edit td .media-select {
+  display: none;
+}
+section.edit .btn-group-vertical > .btn,
+.btn-group > .btn {
+  float: none !important;
 }

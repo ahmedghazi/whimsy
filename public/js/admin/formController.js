@@ -106,7 +106,7 @@ var formController = function(){
 
 		
 
-		$("#sort-videos tbody").sortable({
+		$(".edit tbody").sortable({
 			helper: fixHelper,
 			placeholder: "ui-state-highlight",
 			stop: function( event, ui ) {

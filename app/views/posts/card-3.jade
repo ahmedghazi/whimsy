@@ -1,8 +1,8 @@
-article.col-md-3(class="card" id="#{p._id}")
+- var cl = p.title == "" ? "noma" : "";
+article.col-md-3(class="card #{cl}" id="#{p._id}")
     //pre #{p}
-    //if p.image
+    
     -var image = root_url+'/uploads/'+p.filename;
     .card-img.anime_md(style="background-image:url(#{image});")
     .card-content
-        h3.anime !{p.title}
-        
+        h3.anime #{p.title}

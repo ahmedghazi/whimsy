@@ -21,6 +21,6 @@ table.table.table-striped
                     span #{attachment.uploaded_by.email}
             td.btn-group
                 input(type="hidden" name="images[]" value="#{attachment._id}")
-                a(href="/admin/attachments/edit/#{attachment._id}" class="btn btn-default") Plus d'infos
+                a(href="/admin/attachments/edit/#{attachment._id}" class="btn btn-default") Edit
                 input(type="button" class="btn btn-primary media-select" data-id="#{attachment._id}" value="Select")
                 a(href="/admin/attachments/delete/#{attachment._id}" class="btn btn-danger") Delete

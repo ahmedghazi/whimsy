@@ -5,11 +5,12 @@ block header
     
 prepend content
     
-    ssection.submit
+    section.edit
    
         h2
             span #{title} 
-            a(href="/#{post.category}/#{post.slug}" class="btn btn-primary") Voir
+            a(href="/c/#{post.category}/#{post.slug}" class="btn btn-primary") Voir
+
         //pre #{post}
         form(name="submit", action="/admin/posts/edit/#{post._id}", method="post" )
 

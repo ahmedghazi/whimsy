@@ -13,6 +13,7 @@ var AttachmentsSchema = new Schema({
 	filename: String,
 	path: String,
 	size: Number,
+    title: String,
     texte: String,
     uploaded_by: {type: Schema.Types.ObjectId, ref: 'Users'},
     comments: [{type: Schema.Types.ObjectId, ref: 'Comments'}],

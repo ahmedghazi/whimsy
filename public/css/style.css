@@ -36,13 +36,15 @@ textarea {
   box-shadow: none;
   padding: 18px;
 }
+button[type=button],
 input[type=submit] {
   background-color: #FFCD00;
-  color: #002F9C;
+  color: #fff;
 }
+button[type=button]:hover,
 input[type=submit]:hover {
-  background-color: #002F9C;
-  color: #FFCD00;
+  background-color: #818286;
+  color: #fff;
 }
 input.input_invalide,
 textarea.input_invalide {
@@ -267,6 +269,7 @@ article {
   margin-bottom: 10px;
   text-transform: uppercase;
   font-weight: bold;
+  word-break: break-all;
 }
 .card-full .col-md-3 {
   overflow: auto;

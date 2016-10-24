@@ -15,7 +15,7 @@ table(id="media_select" class="table table-striped #{cl}")
                 td #{user.name}
                 td #{user.email}
                 td #{user.user_type}
-                td.btn-group
+                td
                     input(type="hidden" name="users_in[]" value="#{user._id}")
                     input(type="button" class="btn btn-primary media-select" data-id="#{user._id}" value="Select")
                     input(type="button" class="btn btn-danger media-remove" data-id="#{user._id}" value="Remove")

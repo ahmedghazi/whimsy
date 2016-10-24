@@ -133,8 +133,27 @@ router.get('/edit/:id', function (req, res, next) {
                 admin: req.user
             });
         });
+});
 
-    
+router.post('/edit/:id', function (req, res, next) {
+    Attachments.findOne({ _id: req.params.id }, function(err, post) {
+        if (err) {
+            return res.send(err);
+        }
+
+        for (prop in req.body) {
+            post[prop] = req.body[prop];
+        }
+
+        post.save(function(_err) {
+            if (_err) {
+                console.log(_err)
+                return res.send(_err);
+            }
+
+            res.redirect('/admin/attachments/edit/'+req.params.id)
+        });
+    });
 });
 
 router.get('/delete/:id', function (req, res, next) {

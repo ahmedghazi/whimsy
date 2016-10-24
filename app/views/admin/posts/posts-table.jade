@@ -8,7 +8,7 @@ table(id="media_select" class="table table-striped #{cl}")
                 span Date 
                 
             td 
-                span Type 
+                span Categorie 
                 
             td Invités
             td Status
@@ -21,7 +21,7 @@ table(id="media_select" class="table table-striped #{cl}")
                     
             td #{moment(post.date).format('DD/MM/YYYY')}
 
-            td #{post.post_type}
+            td #{post.category}
             td 
                 if post.users_in
                     span #{post.users_in.length}
@@ -31,4 +31,5 @@ table(id="media_select" class="table table-striped #{cl}")
                 div.btn-group
                     input(type="hidden" name="#{cl}" value="#{post._id}")
                     input(type="button" class="btn btn-primary media-select" data-id="#{post._id}" value="Select")
+                    //a(href="/admin/attachments/edit/#{attachment._id}" class="btn btn-default") Edit
                     input(type="button" class="btn btn-danger media-remove" data-id="#{post._id}" value="Remove")
