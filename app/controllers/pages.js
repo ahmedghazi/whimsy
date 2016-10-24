@@ -45,8 +45,19 @@ console.log(req.user)
 
 router.get('/:category', function (req, res, next) {
     console.log(req.params)
+    var query = {}
+    if(req.user.user_type == "admin"){
+        query = {
+            category: req.params.category
+        }
+    }else{
+        query = {
+            category: req.params.category,
+            users_in : { $in : [req.user._id] }
+        }
+    }
     return Posts
-        .find({category: req.params.category})
+        .find(query)
         //.populate({path:     'image'})
         .populate({
             path:     'images', 
@@ -67,7 +78,10 @@ router.get('/:category', function (req, res, next) {
 router.get('/:category/:slug', userCan, function (req, res, next) {
     console.log(req.params)
     return Posts
-        .findOne({slug: req.params.slug})
+        .findOne({
+            slug: req.params.slug,
+            users_in : { $in : [req.user._id] }
+        })
         .populate({
             path:     'images', 
             options: { sort: { 'createdAt': -1 } },          
