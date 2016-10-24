@@ -1,12 +1,12 @@
 extends layout
 
 block content
-    .container-fluid
-        .page-heading
-            h1
-                span.title #{title}
-                
     .row
+        .container-fluid
+            .page-heading.col-md-12
+                h1.title #{title}
+                
+    .row.grid
         .container-fluid
             each p in posts
                

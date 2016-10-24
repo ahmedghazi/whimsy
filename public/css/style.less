@@ -60,12 +60,16 @@ a:active,
 	text-decoration: none;
 }
 
-h1, h2, h3, h4{margin: 0; padding: 0;}
+h1, h2, h3, h4{
+	margin: 0; padding: 0;
+	text-transform: capitalize;
+}
 
 .clear{clear: both;}
 .sep3{
 	height: 3px;
-	background-color: #818286
+	background-color: #818286;
+	border: none;
 }
 ul{margin: 0; padding: 0;}
 
@@ -141,7 +145,7 @@ header{
 }
 h1{
 	font-size: 34.34px; font-weight: bold;
-	margin-top: -9px;
+	margin-top: -4px;
     margin-bottom: 5px;
 }
 
@@ -180,9 +184,10 @@ footer p{
 	font-size: 20px;
 	font-weight: 400;
 	margin-bottom: 30px;
+	margin-bottom: 0;
 }
 .page-heading p{margin-bottom: 0;}
-p.texte{max-width: 50%;}
+p.texte{max-width: 80%; margin-bottom: 0;}
 .dates{font-weight: 100; font-style: italic;}
 /** ================================ 
 	CARD
@@ -197,6 +202,7 @@ article{margin-bottom: 30px;}
 	width: 100%;
 	height: 220px;
 	background-size: cover;
+	background-position: center;
 	margin-bottom: 10px;
 	-webkit-box-shadow: 0 0 0 3px #818286 inset, 0 0 0 3px #818286 inset;
 	   -moz-box-shadow: 0 0 0 3px #818286 inset, 0 0 0 3px #818286 inset;
@@ -285,5 +291,36 @@ article{margin-bottom: 30px;}
 	.container-main {
 	    width: 1170px;
 	}
+}
+
+@media (max-width: 768px){
+	.row{
+	    margin-right: 0;
+    	margin-left: 0;
+	}
+	.container-fluid {
+	    padding-right: 15px;
+		padding-left: 15px;
+	}
+	header h1 img{
+	    max-width: 100%;
+	    margin-bottom: 10px;
+	}
+	.nav li{
+		text-align: center;
+    	margin-bottom: 3px;
+	}
+	.nav li:nth-child(even){
+		padding-left: 0;
+		width: 50%;
+	}
+	.page-heading{margin-bottom: 1em;}
+	p.texte{max-width: 100%;}
+
+	.card-full{
+		margin-left: -15px;
+		margin-right: -15px;
+	}
+	.card-full img{margin-bottom: 1em;}
 }
 

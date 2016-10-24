@@ -23,8 +23,9 @@ function init(){
 	//if(window.location.hostname == "localhost")dbg = true;
 	dbg = window.location.hostname == "localhost";
 	isTouchDevice = 'ontouchstart' in document.documentElement;
-	
-	//setUpVars()
+	if(ww < 768)isTouchDevice = true;
+	console.log(isTouchDevice)
+
 	bindEvents();
 	initObjects();
 }
@@ -60,13 +61,24 @@ function bindEvents(){
 	        	//console.log(html)
 	        	$("body").removeClass('loading');
 
-	        	$el.parents(".row").after(html).imagesLoaded().then(function(){
-       				format();
+	        	if(isTouchDevice){
+		        	$el.after(html).imagesLoaded().then(function(){
+	       				format();
 
-       				$("html,body").animate({
-       					scrollTop: $(".card-full").position().top
-       				}, 1000, 'easeInOutExpo')
-        		});
+	       				$("html,body").animate({
+	       					scrollTop: $(".card-full").position().top
+	       				}, 1000, 'easeInOutExpo')
+	        		});
+	        	}else{
+		        	$el.parents(".row").after(html).imagesLoaded().then(function(){
+	       				format();
+
+	       				$("html,body").animate({
+	       					scrollTop: $(".card-full").position().top
+	       				}, 1000, 'easeInOutExpo')
+	        		});
+	        	}
+	        	
 	    	},
 	    	error: function (xhr, ajaxOptions, thrownError) {
 	    		//cb(xhr.responseText);

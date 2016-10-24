@@ -14,11 +14,24 @@ block content
                         i.fa.fa-upload  
                     span  Upload
 
-
+    .row
+        .container-fluid
+            .col-md-12
+                hr
+                
     for post2D in posts2D 
-        .row
+        .row.grid-row
             .container-fluid      
                 for p in post2D
                     include posts/card-3
-
+    
+    .row
+        .container-fluid
+            .col-md-9
+            .col-md-3.page-action
+                button(type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#modal_upload")
+                    span
+                        i.fa.fa-upload  
+                    span  Upload
+                    
     include modal

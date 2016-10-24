@@ -23,7 +23,13 @@ module.exports = function (grunt) {
           'public/css/style-admin.css': 'public/css/style-admin.less',
           'public/css/style.css': 'public/css/style.less',
         }
-      }
+      },
+      options: {
+        plugins: [
+          new (require('less-plugin-autoprefix'))({browsers: ["last 2 versions"]}),
+          new (require('less-plugin-clean-css'))({advanced: true})
+        ]
+      },
     },
     watch: {
       options: {
