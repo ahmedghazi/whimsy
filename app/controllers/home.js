@@ -23,8 +23,8 @@ router.get('/', function (req, res, next) {
                 url: "/c/convoyages"
             },
             {
-                name: "REPÉRAGES",
-                url: "/c/reperages"
+                name: "PLANNING",
+                url: "/p"
             },
         ],
     });
