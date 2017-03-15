@@ -1,0 +1,74 @@
+extends ../layout
+
+block header
+    include ../inc/admin-nav
+        
+block content
+
+    h2 
+        span #{title} 
+        a(href="/admin/planning/new" class="btn btn-primary") Ajouter
+    hr
+
+
+   
+    section
+        //pre #{posts}
+        .row
+            .col-md-12
+                h3 Filtres
+            .col-md-3
+                a(href="/admin/posts" class="btn btn-default btn-block") Tous
+            .col-md-3
+                a(href="/admin/planning/filter/page" class="btn btn-success btn-block") Pages
+             
+            .col-md-3
+                a(href="/admin/planning/filter/image" class="btn btn-info btn-block") Images
+
+            .col-md-3
+                form(method="POST" action="/admin/planning/search/" class="form-inline" role="form")
+                    .form-group
+                        input(type="text", class="form-control", name="s" placeholder="Mots clefs" value="")
+                        input(type="submit", class="btn btn-primary ", value="Chercher")
+        
+        hr 
+            
+        table.table.table-striped
+            thead
+                tr.panel.panel-default
+                    td 
+                        span Nom 
+                        a(href="/admin/planning/sort/title/1") ↑ 
+                        a(href="/admin/planning/sort/title/-1") ↓
+                    td 
+                        span Date 
+                        a(href="/admin/planning/sort/date/1") ↑ 
+                        a(href="/admin/planning/sort/date/-1") ↓
+                    td 
+                        span Categorie 
+                        a(href="/admin/planning/sort/category/1") ↑ 
+                        a(href="/admin/planning/sort/category/-1") ↓
+                    td Invités
+                    td 
+                        span Status 
+                        a(href="/admin/planning/sort/post_status/1") ↑ 
+                        a(href="/admin/planning/sort/post_status/-1") ↓
+                    td Actions
+            tbody
+
+            each post in Planning
+                tr
+                    td #{post.title}
+                            
+                    td #{moment(post.createdAt).format('DD.MM.YYYY')}
+
+                    td #{post.category}
+                    td 
+                        if post.users_in
+                            span #{post.users_in.length}
+
+                    td #{post.post_status}
+                    td.btn-group
+                            a(href="/admin/planning/edit/#{post._id}" class="btn btn-primary") Edit
+                            a(target="_blank" href="/p/#{post.slug}" class="btn btn-default") Voir
+                            a(href="/admin/planning/delete/#{post._id}" class="btn btn-danger") Delete

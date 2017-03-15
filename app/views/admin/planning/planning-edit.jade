@@ -1,0 +1,100 @@
+extends ../layout
+
+block header
+    include ../inc/admin-nav
+    
+prepend content
+
+    section.submit
+   
+        h2
+            span #{title} 
+            a(href="/p/#{post.slug}" class="btn btn-primary") Voir
+
+        form(name="submit", action="/admin/planning/edit/#{post._id}", method="post")
+
+            div.form-group
+                label(for="title") Titre
+                input(type="text", class="form-control", name="title", placeholder="Titre", value="#{post.title}")
+            
+            div.form-group
+                label(for="texte") Description
+                textarea(name="description" class="form-control" rows="5") #{post.description}
+
+            .row
+                .col-md-4  
+                    div.form-group
+                        label(for="post_status") Status du post
+                        select(name="post_status", class="form-control")
+                            option(value="" disabled="true" selected="true") Selectionnez
+                            option(value="brouillon" selected=post.post_status=="brouillon") Brouillon
+                            option(value="public" selected=post.post_status=="public") Public
+                
+                .col-md-4  
+                    div.form-group
+                        label(for="category") Catégorie
+                        input(type="text", class="form-control", name="category", placeholder="Catégorie", value="#{post.category}")
+
+                .col-md-4  
+                    div.form-group
+                        label(for="post_order") Ordre
+                        input(type="number", class="form-control", name="post_order" placeholder="" value="#{post.post_order}")
+                    
+            .row
+                .col-md-6
+                    div.form-group
+                        label(for="from") Du
+                        input(type="date", class="form-control", name="from" placeholder="" value="#{moment(post.from).format('YYYY-MM-DD')}")
+                .col-md-6
+                    div.form-group
+                        label(for="to") Au
+                        input(type="date", class="form-control", name="to" placeholder="" value="#{moment(post.to).format('YYYY-MM-DD')}")
+
+            div.form-group
+                label(for="texte") Parcours
+                input(type="text", class="form-control", name="parcours", placeholder="Parcours", value="#{post.parcours}")
+
+            div.form-group
+                label(for="texte") Destination
+                input(type="text", class="form-control", name="destination", placeholder="Destination", value="#{post.destination}")
+
+            div.form-group
+                label(for="texte") Jours
+                input(type="number", class="form-control", name="jours" placeholder="" value="#{post.jours}")
+                
+            div.form-group
+                label(for="texte") Distance (Miles)
+                input(type="text", class="form-control", name="distance", placeholder="Distance", value="#{post.distance}")
+
+            div.form-group
+                label(for="texte") Équipage
+                textarea(name="equipage" class="form-control" rows="3") #{post.equipage}
+
+            
+
+            hr
+            div.form-group 
+                h3 
+                    span Image 
+                    a(href="/admin/attachments/attachment-table" class="ajax btn btn-info" data-target="#modal_image" data-input-target="image") Afficher les images  
+                -var cl = "image";
+                -var image = post.image;
+                include planning-image-table
+                //-var enfants = posts;
+                
+            
+            hr
+            div.form-group 
+                h3 
+                    span Utilisateurs  
+                    a(href="/admin/users/users-in-table" class="ajax btn btn-info" data-target="#modal_users" data-input-target="users_in") Afficher les utilisateurs
+                -var cl = "users_in";
+                //-var users = post.users_in;
+                include ../users/users-in-table
+            hr
+            div.form-group          
+                input(type="hidden" name="post_type" value="page")      
+                input(type="submit", class="btn btn-lg btn-primary btn-block", value="Submit")
+
+
+

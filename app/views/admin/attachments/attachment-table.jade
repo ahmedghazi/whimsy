@@ -1,0 +1,26 @@
+table.table.table-striped
+    thead
+        tr.panel.panel-default
+            td Visuel 
+            td Nom 
+            td Date  
+            td Uploadé par  
+            td Actions
+            
+    tbody
+
+    each attachment in attachments
+        //pre #{attachment}
+        tr(id="#{attachment._id}")
+            td 
+                img(src="#{root_url}/uploads/#{attachment.filename}" width="100" height="")
+            td #{attachment.originalname}
+            td #{moment(attachment.date_created).format('DD/MM/YYYY')}
+            td 
+                if attachment.uploaded_by
+                    span #{attachment.uploaded_by.email}
+            td.btn-group
+                input(type="hidden" name="image" value="#{attachment._id}")
+                a(href="/admin/attachments/edit/#{attachment._id}" class="btn btn-default") Edit
+                input(type="button" class="btn btn-primary media-select" data-id="#{attachment._id}" value="Select")
+                a(href="/admin/attachments/delete/#{attachment._id}" class="btn btn-danger") Delete

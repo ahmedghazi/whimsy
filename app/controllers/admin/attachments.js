@@ -179,6 +179,23 @@ router.post('/ajax-new', upload.single("file"), function (req, res, next) {
     });
 });
 
+router.get('/attachment-table', function (req, res, next) {
+    Attachments
+        .find()
+        .sort({date_created: 'desc'})
+        //.populate({path: 'parent jours'})
+        .exec(function(err, attachments) {
+        //.find(function (err, posts) {
+            if (err) return next(err);
+         
+            res.render('admin/attachments/attachment-table', {
+                title: 'Media',
+                attachments: attachments,
+                admin: req.user
+            });
+    });
+});
+
 router.get('/attachments-table', function (req, res, next) {
     Attachments
         .find()

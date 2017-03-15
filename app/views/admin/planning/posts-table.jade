@@ -1,0 +1,35 @@
+table(id="media_select" class="table table-striped #{cl}")
+    thead
+        tr.panel.panel-default
+            td 
+                span Nom 
+                
+            td 
+                span Date 
+                
+            td 
+                span Categorie 
+                
+            td Invités
+            td Status
+            td Actions
+    tbody
+
+    each post in posts
+        tr
+            td #{post.title}
+                    
+            td #{moment(post.date).format('DD/MM/YYYY')}
+
+            td #{post.category}
+            td 
+                if post.users_in
+                    span #{post.users_in.length}
+
+            td #{post.post_status}
+            td
+                div.btn-group
+                    input(type="hidden" name="#{cl}" value="#{post._id}")
+                    input(type="button" class="btn btn-primary media-select" data-id="#{post._id}" value="Select")
+                    //a(href="/admin/attachments/edit/#{attachment._id}" class="btn btn-default") Edit
+                    input(type="button" class="btn btn-danger media-remove" data-id="#{post._id}" value="Remove")

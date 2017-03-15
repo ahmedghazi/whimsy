@@ -1,0 +1,27 @@
+extends layout
+
+block content
+
+    .container-fluid
+        .col-md-9.page-heading
+            h1.title #{title}
+                
+            
+
+    
+    .container-fluid
+        for p in posts 
+            .planning-liste
+                a(href="/p/#{p.slug}")
+                    .row
+                        .col-md-1.dates
+                            div.date #{moment(p.from).format('DD.MM.YYYY')}
+                            div.text-center ↘
+                            div.date #{moment(p.to).format('DD.MM.YYYY')}
+                        .col-md-3 
+                            h2 #{p.title}
+                            
+                        .col-md-2 
+                            p ↝ #{p.destination}
+                        .col-md-6 
+                            p #{p.description}

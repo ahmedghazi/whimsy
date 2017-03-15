@@ -16,14 +16,15 @@ var isAuthenticated = function (req, res, next) {
     //return next();
     if (req.isAuthenticated())
         return next();
+    else{
         res.redirect('/security/login');
-
-    return next();
+    }
+    
 }
 
 var userCan = function (req, res, next) {
-console.log("userCan")
-console.log(req.user)
+
+   //if(!req.user)return res.redirect('/security/login');
     if(req.user.user_type == "admin")
         return next();
 
@@ -35,7 +36,7 @@ console.log(req.user)
         .exec(function(err, post) {
             if (err) return next(err);
             
-            console.log(post);
+            console.log("post",post);
             if(post)
                 return next();
             else
@@ -44,20 +45,9 @@ console.log(req.user)
 };
 
 router.get('/:category', function (req, res, next) {
-    console.log(req.params)
-    var query = {}
-    if(req.user.user_type == "admin"){
-        query = {
-            category: req.params.category
-        }
-    }else{
-        query = {
-            category: req.params.category,
-            users_in : { $in : [req.user._id] }
-        }
-    }
+    
     return Posts
-        .find(query)
+        .find({category: req.params.category})
         //.populate({path:     'image'})
         .populate({
             path:     'images', 
@@ -75,13 +65,22 @@ router.get('/:category', function (req, res, next) {
         })
 });
 
-router.get('/:category/:slug', userCan, function (req, res, next) {
+router.get('/:category/:slug', isAuthenticated, userCan, function (req, res, next) {
     console.log(req.params)
-    return Posts
-        .findOne({
+    console.log(req.user)
+    if(req.user.user_type == "admin")
+        var query = {
+            slug: req.params.slug
+        }
+    else
+        var query = {
             slug: req.params.slug,
             users_in : { $in : [req.user._id] }
-        })
+        }
+        var users_in = { $in : [req.user._id] }
+
+    return Posts
+        .findOne(query)
         .populate({
             path:     'images', 
             options: { sort: { 'createdAt': -1 } },          
@@ -91,16 +90,22 @@ router.get('/:category/:slug', userCan, function (req, res, next) {
             if (err) return next(err);
 
             var posts2D;
-            if(post)
+            if(post != null){
                 posts2D = arrayTo2DArray(post.images, 4);
-
-            return res.render('page', {
-                title: post.title,
-                post: post,
-                posts2D: posts2D,
-                user: req.user,
-            });
-
+            
+console.log(post)
+                return res.render('page', {
+                    title: post.title,
+                    post: post,
+                    posts2D: posts2D,
+                    user: req.user,
+                });
+            } else {
+                return res.render('page-nothing', {
+                    title: "Ce contenu est privé",
+                    user: req.user,
+                });
+            }
         })
 });
 
