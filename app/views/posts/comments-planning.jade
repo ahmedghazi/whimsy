@@ -3,7 +3,7 @@
         each comment in post.comments
             include comment
 
-    form(method="post" action="/api/#{post._id}/comment")
+    form(method="post" action="/api/planning/#{post._id}/comment")
         div.form-group
             textarea(name="texte" class="form-control" rows="2" placeholder="Votre commentaire")
         div.form-group.noma     

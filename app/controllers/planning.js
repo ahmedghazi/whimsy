@@ -65,15 +65,16 @@ router.get('/:slug', function (req, res, next) {
         .findOne({slug: req.params.slug})
         //.populate({path:     'image'})
         .populate({
-            path:     'image', 
-            options: { sort: { 'createdAt': -1 } },          
-            populate: { path:  'image', model: 'Attachments'}
+            path:     'image comments', 
+            //options: { sort: { 'createdAt': -1 } },          
+            populate: { path:  'author', model: 'Users'}
         })
         .exec(function(err, Planning) {
             if (err) return next(err);
-console.log(Planning)
+//console.log(Planning)
             return res.render('planning-single', {
                 post: Planning,
+                user: req.user
             });
 
         })

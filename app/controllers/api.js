@@ -9,6 +9,7 @@ var express = require('express'),
     Posts = mongoose.model('Posts'),
     Comments = mongoose.model('Comments'),
     Attachments = mongoose.model('Attachments'),
+    Planning = mongoose.model('Planning'),
     multer  = require('multer'),
     storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -96,7 +97,7 @@ router.get('/image/:id', function (req, res, next) {
         })
 });
 
-router.post('/:id/comment', function (req, res, next) {
+router.post('/attachments/:id/comment', function (req, res, next) {
     var comment = new Comments(req.body);
         comment.save(function(err) {
         if (err) {
@@ -105,6 +106,35 @@ router.post('/:id/comment', function (req, res, next) {
 
         var update = { $addToSet: {comments: comment._id } }
         Attachments.findOneAndUpdate({_id: req.body.parent}, update, {}, function (err, user, raw) {
+            if (err) 
+                return res.json({sucess:false, err:err});
+
+            Comments
+                .findOne({_id: comment._id})
+                .populate({path: 'author'})
+                .exec(function(err, com) {
+            console.log(com)
+                    return res.render('posts/comment', {
+                        comment: com,
+                        //user: comment.author
+                    }, function(err, html){
+                        return res.json({sucess:true, comment:html});
+                    });
+                });
+            
+        });
+    });
+});
+
+router.post('/planning/:id/comment', function (req, res, next) {
+    var comment = new Comments(req.body);
+        comment.save(function(err) {
+        if (err) {
+            return res.send(err);
+        }
+
+        var update = { $addToSet: {comments: comment._id } }
+        Planning.findOneAndUpdate({_id: req.body.parent}, update, {}, function (err, user, raw) {
             if (err) 
                 return res.json({sucess:false, err:err});
 
