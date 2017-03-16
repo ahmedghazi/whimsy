@@ -26,7 +26,8 @@ var userCan = function (req, res, next) {
     if(req.user.user_type == "admin")
         return next();
 
-    Planning
+    return res.redirect("/p");
+    /*Planning
         .findOne( { $and: [ 
             { users_in: { $in: [req.user._id] } }, 
             { slug: req.params.slug } 
@@ -39,7 +40,7 @@ var userCan = function (req, res, next) {
                 return next();
             else
                 res.redirect("/p");
-        });
+        });*/
 };
 
 router.get('/', function (req, res, next) {

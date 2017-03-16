@@ -1,5 +1,5 @@
 - var cl = p.title == "" ? "noma" : "";
-article.col-md-3(class="card #{cl}" id="#{p._id}")
+article.col-md-3(class="card #{cl}" id="#{p._id}" data-pid="#{post._id}")
     //pre #{p}
     if p.filename
         if p.thumbnail

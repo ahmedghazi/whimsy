@@ -94,6 +94,7 @@ router.get('/:category/:slug', isAuthenticated, userCan, function (req, res, nex
                 posts2D = arrayTo2DArray(post.images, 4);
             
 //console.log(post)
+                //var url = root_url+"/"+req.params.category+"/"+req.params.slug
                 return res.render('page', {
                     title: post.title,
                     post: post,

@@ -21,6 +21,7 @@ block content
                 
     for post2D in posts2D 
         .row.grid-row
+            input(type="hidden" id="page_id" value="#{post._id}")
             .container-fluid      
                 for p in post2D
                     include posts/card-3

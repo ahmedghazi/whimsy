@@ -77,7 +77,7 @@ router.get('/setup', function (req, res, next) {
     
 });
 
-router.get('/image/:id', function (req, res, next) {
+router.get('/image/:id/:pid', function (req, res, next) {
     //console.log("dddd")
     return Attachments
         .findOne({_id: req.params.id})
@@ -93,10 +93,36 @@ router.get('/image/:id', function (req, res, next) {
             return res.render('posts/card-full', {
                 title: post.title,
                 post: post,
-                user: req.user
+                user: req.user,
+                pid: req.params.pid
             });
 
         })
+});
+
+router.get('/image/delete/:id/:pid', function (req, res, next) {
+    Posts.findOneAndUpdate(
+        { _id: req.params.pid },
+        { $pull: { images: req.params.rid } },
+        { 'new': false },
+        function(error, doc) {
+            Attachments.remove({
+                _id: req.params.id
+            }, function(err, post) {
+                if (err) {
+                    return res.json({
+                        success: false,
+                        mess: err
+                    });
+                }
+
+                return res.json({
+                    success: true,
+                    mess: "Supprimé"
+                });
+            });
+        });
+
 });
 
 router.post('/attachments/:id/comment', function (req, res, next) {

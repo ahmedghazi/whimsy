@@ -24,3 +24,9 @@ article.col-md-12.card-full
                     hr
                     
                     include comments-attachments
+
+                    //pre #{user}
+                    if user.user_type == "admin"
+                        hr
+                        //-var current_url = window.location.href;
+                        a(href="/api/image/delete/#{post._id}/#{pid}" class="btn btn-danger ajax") Supprimer

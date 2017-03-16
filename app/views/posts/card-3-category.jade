@@ -2,7 +2,7 @@ article.col-md-3(class="" id="#{p._id}")
     //pre #{p}
     a(href="#{url}")
         if image
-            -var image = root_url+'/uploads/'+image;
+            //-var image = root_url+'/uploads/'+image;
             .card-img.anime_md(style="background-image:url(#{image});")
         .card-content
             h3.anime !{p.title}

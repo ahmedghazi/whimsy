@@ -45,6 +45,7 @@ function bindEvents(){
 		/* Act on the event */
 		$el = $(this);
 		var id = $el.attr("id");
+		var pid = $el.data("pid");
 		console.log(id)
 		
 		$('article.card').removeClass('current');
@@ -54,7 +55,7 @@ function bindEvents(){
 
 		$.ajax({
 			method: "GET",
-			url: "/api/image/"+id, 
+			url: "/api/image/"+id+"/"+pid, 
 			//data: {id: id},
 			success: function(html){
 	        	//console.log(html)
@@ -66,7 +67,7 @@ function bindEvents(){
 
 	       				$("html,body").animate({
 	       					scrollTop: $(".card-full").position().top
-	       				}, 1000, 'easeInOutExpo')
+	       				}, 600, 'easeInOutExpo')
 	        		});
 	        	}else{
 		        	$el.parents(".row").after(html).imagesLoaded().then(function(){
@@ -74,7 +75,7 @@ function bindEvents(){
 
 	       				$("html,body").animate({
 	       					scrollTop: $(".card-full").position().top
-	       				}, 1000, 'easeInOutExpo')
+	       				}, 600, 'easeInOutExpo')
 	        		});
 	        	}
 	        	
@@ -150,6 +151,26 @@ function bindEvents(){
                 location.reload();
             }
         });
+	});
+
+	$("html").on('click', 'a.ajax', function(event) {
+		event.preventDefault();
+
+		$.ajax({
+		    url: $(this).attr("href"),
+		    type: 'GET',
+		    
+		    success: function(data, textStatus, jqXHR)  {
+		        console.log(data);
+		        if(data.success == true)
+			        location.reload();
+			    else
+			    	alert(data.mess)
+		    },
+		    error: function(jqXHR, textStatus, errorThrown) {
+		        //callback({ errors: [textStatus] })
+		    }
+		});
 	});
 
 }
