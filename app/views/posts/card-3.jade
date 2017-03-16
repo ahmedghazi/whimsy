@@ -1,7 +1,13 @@
 - var cl = p.title == "" ? "noma" : "";
 article.col-md-3(class="card #{cl}" id="#{p._id}")
     //pre #{p}
-    -var image = root_url+'/uploads/'+p.filename;
-    .card-img.anime_md(style="background-image:url(#{image});")
+    if p.filename
+        if p.thumbnail
+            -var image = root_url+'/uploads/'+p.thumbnail;
+        else
+            -var image = root_url+'/uploads/'+p.filename;
+        .card-img.anime_md(style="background-image:url(#{image});")
+    else
+        -var url = root_url+"/img/default.jpg";
     .card-content
         h3.anime #{p.title}

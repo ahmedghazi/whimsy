@@ -9,8 +9,11 @@ block content
     .row.grid
         .container-fluid
             each p in posts
-               
-                - var image = p.images[0].filename;
-                - var url = "/c/"+p.category+"/"+p.slug;
+                if p.images
+                    
+                    - var image = p.images[0].filename;
+                    - var url = "/c/"+p.category+"/"+p.slug;
+                else
+                    - var url = root_url+"/img/default.jpg";
                 //pre #{image}
                 include posts/card-3-category

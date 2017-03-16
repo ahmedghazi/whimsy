@@ -24,7 +24,6 @@ function init(){
 	dbg = window.location.hostname == "localhost";
 	isTouchDevice = 'ontouchstart' in document.documentElement;
 	if(ww < 768)isTouchDevice = true;
-	console.log(isTouchDevice)
 
 	bindEvents();
 	initObjects();
@@ -126,7 +125,26 @@ function bindEvents(){
             processData: false, // obligatoire pour de l'upload
             dataType: 'json', // selon le retour attendu
             data: data,
+            progress: function(e) {
+               	if(e.lengthComputable) {
+               		$(".progress-bar")
+            			.removeClass("progress-bar-success")
+            			.addClass("progress-bar-info")
+
+                   	var pct = (e.loaded / e.total) * 100;
+
+                   	//log percentage loaded
+                   	console.log(pct);
+                   	$(".progress .sr-only").text(pct+"%");
+                   	$(".progress-bar").css({width:pct+"%"});
+                }else {
+                   	console.warn('Content Length not reported!');
+                }
+           	},
             success: function (response) {
+            	$(".progress-bar")
+            		.removeClass("progress-bar-info")
+            		.addClass("progress-bar-success")
                 // La réponse du serveur
                 console.log(response)
                 location.reload();
@@ -198,6 +216,6 @@ function format(){
 	wh = $(window).height();
 
 	var iH = $(".col-md-9").find("img").outerHeight();
-	console.log(iH)
+	
 	if(iH != 0)$(".card-full").find(".col-md-3").css({"max-height": iH})
 }

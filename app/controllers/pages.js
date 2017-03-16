@@ -36,7 +36,7 @@ var userCan = function (req, res, next) {
         .exec(function(err, post) {
             if (err) return next(err);
             
-            console.log("post",post);
+            //console.log("post",post);
             if(post)
                 return next();
             else
@@ -66,8 +66,8 @@ router.get('/:category', function (req, res, next) {
 });
 
 router.get('/:category/:slug', isAuthenticated, userCan, function (req, res, next) {
-    console.log(req.params)
-    console.log(req.user)
+    //console.log(req.params)
+    //console.log(req.user)
     if(req.user.user_type == "admin")
         var query = {
             slug: req.params.slug
@@ -93,7 +93,7 @@ router.get('/:category/:slug', isAuthenticated, userCan, function (req, res, nex
             if(post != null){
                 posts2D = arrayTo2DArray(post.images, 4);
             
-console.log(post)
+//console.log(post)
                 return res.render('page', {
                     title: post.title,
                     post: post,

@@ -10,6 +10,8 @@ var express = require('express'),
     Comments = mongoose.model('Comments'),
     Attachments = mongoose.model('Attachments'),
     Planning = mongoose.model('Planning'),
+    //easyimg = require('easyimage'),
+    imagemagick = require('imagemagick'),
     multer  = require('multer'),
     storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -20,7 +22,7 @@ var express = require('express'),
             if(file.mimetype == "image/jpeg")mimetype = ".jpg";
             else if(file.mimetype == "image/png")mimetype = ".png";
             else if(file.mimetype == "image/gif")mimetype = ".gif";
-            console.log(mimetype)
+            //console.log(mimetype)
             cb(null, Date.now() + mimetype) //Appending .jpg
         }
     }),
@@ -154,59 +156,100 @@ router.post('/planning/:id/comment', function (req, res, next) {
         });
     });
 });
-/*
-router.post('/:id/upload', upload.single("media"), function (req, res, next) {
-    //console.log(req.file)
-    //return req.file;
-    var attachment = new Attachments(req.file);
-    attachment.uploaded_by = req.body.uploaded_by;
-    attachment.save(function(err) {
-        if (err) {
-            return res.send(err);
-        }
 
-        var slug = urlSlug(req.body.title);
-        
-        var post = new Posts(req.body);
-        post.slug = slug;
-        post.image = attachment._id
-        post.save(function(err) {
-            if (err) {
-                return res.json({sucess:false, err:err});
-            }
-            var update = { $addToSet: {enfants: post._id } }
-            Posts.findOneAndUpdate({_id: req.body.parent}, update, {}, function (err, user, raw) {
-                if (err) 
-                    return res.json({sucess:false, err:err});
-                
-                Posts
-                    .findOne({_id: post._id})
-                    .populate({path: 'image'})
-                    .exec(function(err, post) {
-                
-                        return res.render('posts/card-3', {
-                            p: post,
-                            //user: comment.author
-                        }, function(err, html){
-                            return res.json({sucess:true, post:html});
-                        });
-                    });
-            });
-            //res.redirect('/admin/posts/');
-        });
-        //res.redirect('/admin/attachments/');
-    });
-});
-*/
 var uploadAny = upload.any();
 router.post('/:id/upload', function (req, res, next) {
     //console.log(req.file)
-    console.log(req.files)
+    //console.log(req.files)
     uploadAny(req, res, function (err) {
         if (err) return next(err);
         //return req.files;
         var images = [];
         async.each(req.files, function(file, callback) { 
+            //console.log(file)
+            var image1024,image300;
+
+            var name = file.filename.split(".")[0];
+            var extention = file.filename.split(".")[1];
+
+            imagemagick.resize({
+                srcPath: file.path,
+                dstPath: file.destination+name+"-1024x1024."+extention,
+                width:   1024
+            }, function(err, stdout, stderr){
+                if (err) throw err;
+              
+                image1024 = name+"-1024x1024."+extention;
+                
+                imagemagick.resize({
+                    srcPath: file.path,
+                    dstPath: file.destination+name+"-300x300."+extention,
+                    width:   300
+                }, function(err, stdout, stderr){
+                    if (err) throw err;
+                  
+                    image300 = name+"-300x300."+extention;
+
+                    var attachment = new Attachments(file);
+                    attachment.large = image1024;
+                    attachment.thumbnail = image300;
+                    attachment.uploaded_by = req.body.uploaded_by;
+                    attachment.save(function(err) {
+                        if (err) {
+                            console.log(_err)
+                            return res.send(err);
+                        }
+                    
+                        images.push(attachment._id)
+                        callback();
+                        
+                    });
+                });
+            });
+
+
+            /*easyimg.thumbnail({
+                src: file.path, 
+                dst: file.destination+name+"-1024x1024."+extention,
+                width:1024, height:1024,
+                x:0, y:0
+            }, function(err, image) {
+                console.log(err)
+                if (err) throw err;
+                console.log('Thumbnail created');
+
+                image1024 = image;
+                console.log("image1024",image1024);
+
+                easyimg.thumbnail({
+                    src: file.path, 
+                    dst: file.destination+name+"-318x220."+extention,
+                    width:318, height:220,
+                    x:0, y:0
+                }, function(err, image) {
+                    if (err) throw err;
+                    console.log('thumbnail created');
+                    
+                    image318 = image;
+                    console.log("image318",image318);
+
+                    var attachment = new Attachments(file);
+                    attachment.uploaded_by = req.body.uploaded_by;
+                    attachment.save(function(err) {
+                        if (err) {
+                            console.log(_err)
+                            return res.send(err);
+                        }
+                    
+                        //console.log(file)
+                        images.push(attachment._id)
+                        callback();
+                        
+                    });
+                });
+            });*/
+
+            /*
             var attachment = new Attachments(file);
             attachment.uploaded_by = req.body.uploaded_by;
             attachment.save(function(err) {
@@ -214,22 +257,23 @@ router.post('/:id/upload', function (req, res, next) {
                     console.log(_err)
                     return res.send(err);
                 }
-    
+            
                 //console.log(file)
                 images.push(attachment._id)
                 callback();
                 
             });
+            */
 
         }, function(err) {
             if (err) return next(err);
-console.log(images)
+//console.log(images)
             var update = { $pushAll: {images: images } }
             Posts.findOneAndUpdate({_id: req.body.parent}, update, {}, function (err, post, raw) {
-                console.log(err, post, raw)
+                //console.log(err, post, raw)
                 if (err) 
                     return res.json({sucess:false, err:err});
-                console.log(post)
+                //console.log(post)
                 return res.json({sucess:true});
             });
 

@@ -16,6 +16,11 @@ div.modal.fade#modal_upload(role="dialog")
                             .form-inline
                                 input(type="file" name="media[]" multiple accept="image/*")
 
+                        .form-group.progress-wrapper
+                            .progress
+                                div(class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" )
+                                    span.sr-only
+
                         .form-group.noma 
                             input(type="hidden" name="post_type" value="image")
                             input(type="hidden" name="uploaded_by" value="#{user._id}")

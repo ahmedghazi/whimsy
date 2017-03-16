@@ -4,7 +4,11 @@ article.col-md-12.card-full
         .container-fluid
             .col-md-9
                 //pre #{post}
-                -var image = root_url+'/uploads/'+post.filename;
+                if post.large
+                    -var image = root_url+'/uploads/'+post.large;
+                else
+                    -var image = root_url+'/uploads/'+post.filename;
+                //-var image = root_url+'/uploads/'+post.filename;
                 img(src="#{image}")
             .col-md-3
                 .scroll-pane
