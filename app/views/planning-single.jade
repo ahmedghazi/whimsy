@@ -9,7 +9,7 @@ block content
                     if post.image
                         img(src="#{root_url}/uploads/#{post.image.filename}")
                     else
-                        img(src='http://lorempixel.com/400/400/abstract/')
+                        img(src='#{root_url}/img/default.jpg')
                 .col-md-8.col-body
                     .dates #{moment(post.from).format('DD.MM.YYYY')} ↝ #{moment(post.to).format('DD.MM.YYYY')}
                         
