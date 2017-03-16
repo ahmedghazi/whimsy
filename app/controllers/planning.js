@@ -38,7 +38,7 @@ var userCan = function (req, res, next) {
             if(post)
                 return next();
             else
-                res.redirect("/");
+                res.redirect("/p");
         });
 };
 
@@ -60,7 +60,7 @@ router.get('/', function (req, res, next) {
         })
 });
 
-router.get('/:slug', function (req, res, next) {
+router.get('/:slug', userCan, function (req, res, next) {
     return Planning
         .findOne({slug: req.params.slug})
         //.populate({path:     'image'})

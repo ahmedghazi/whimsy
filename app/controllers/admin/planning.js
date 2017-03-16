@@ -143,7 +143,7 @@ router.get('/edit/:id', function (req, res, next) {
         .exec(function(err, post) {
         //.find(function (err, Planning) {
             if (err) return next(err);
-
+console.log(post)
             return res.render('admin/planning/planning-edit', {
                 title: 'Editer',
                 post: post,
@@ -161,7 +161,7 @@ router.post('/edit/:id', function (req, res, next) {
         }
 
         req.body.slug = urlSlug(req.body.title);
-        
+
         for (prop in req.body) {
             post[prop] = req.body[prop];
         }
