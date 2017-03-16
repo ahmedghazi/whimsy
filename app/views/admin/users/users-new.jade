@@ -23,10 +23,14 @@ prepend content
                 label(for="last_name") Password
                 input(type="text", class="form-control", name="password" placeholder="" value="")
             
+            div.form-group
+                label(for="post_status") Type d'utilisateur
+                select(name="user_type", class="form-control")
+                    option(value="admin") Administrateur
+                    option(value="invite" selected="true") Invité
             
 
             div.form-group
-                input(type="hidden" name="user_type" value="invite")
                 input(type="submit", class="btn btn-lg btn-primary btn-block", value="Submit")
 
         

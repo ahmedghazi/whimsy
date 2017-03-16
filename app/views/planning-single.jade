@@ -6,8 +6,10 @@ block content
         .planning-single
             .row
                 .col-md-4.col-visuel
-
-                    img(src="#{root_url}/uploads/#{post.image.filename}")
+                    if post.image
+                        img(src="#{root_url}/uploads/#{post.image.filename}")
+                    else
+                        img(src='http://lorempixel.com/400/400/abstract/')
                 .col-md-8.col-body
                     .dates #{moment(post.from).format('DD.MM.YYYY')} ↝ #{moment(post.to).format('DD.MM.YYYY')}
                         

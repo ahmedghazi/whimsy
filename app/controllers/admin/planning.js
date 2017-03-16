@@ -163,7 +163,8 @@ router.post('/edit/:id', function (req, res, next) {
         for (prop in req.body) {
             post[prop] = req.body[prop];
         }
-
+console.log(req.body.image)
+        if(!req.body.image)post['image'] = null;
         post.save(function(_err) {
             if (_err) {
                 console.log(_err)
