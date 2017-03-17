@@ -127,7 +127,9 @@ function bindEvents(){
             dataType: 'json', // selon le retour attendu
             data: data,
             progress: function(e) {
+            	console.log(e)
                	if(e.lengthComputable) {
+               		$(".progress-wrapper").removeClass("hidden");
                		$(".progress-bar")
             			.removeClass("progress-bar-success")
             			.addClass("progress-bar-info")
@@ -146,12 +148,12 @@ function bindEvents(){
             	$(".progress-bar")
             		.removeClass("progress-bar-info")
             		.addClass("progress-bar-success")
-                // La réponse du serveur
+        
                 console.log(response)
                 location.reload();
             }
         });
-	});
+	});x
 
 	$("html").on('click', 'a.ajax', function(event) {
 		event.preventDefault();

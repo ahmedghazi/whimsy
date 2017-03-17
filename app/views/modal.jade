@@ -15,8 +15,11 @@ div.modal.fade#modal_upload(role="dialog")
                             
                             .form-inline
                                 input(type="file" name="media[]" multiple accept="image/*")
+                        .form-group.drop
+                            div(id="dropArea") Déposer votre image ici
 
-                        .form-group.progress-wrapper
+                        hr
+                        .progress-wrapper
                             .progress
                                 div(class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" )
                                     span.sr-only

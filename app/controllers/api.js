@@ -185,12 +185,13 @@ router.post('/planning/:id/comment', function (req, res, next) {
 
 var uploadAny = upload.any();
 router.post('/:id/upload', function (req, res, next) {
-    //console.log(req.file)
+    
     //console.log(req.files)
     uploadAny(req, res, function (err) {
         if (err) return next(err);
-        //return req.files;
+
         var images = [];
+        var imageAttachmentId = '';
         async.each(req.files, function(file, callback) { 
             //console.log(file)
             var image1024,image300;
@@ -206,7 +207,7 @@ router.post('/:id/upload', function (req, res, next) {
                 if (err) throw err;
               
                 image1024 = name+"-1024x1024."+extention;
-                
+                //console.log("image1024",image1024)
                 imagemagick.resize({
                     srcPath: file.path,
                     dstPath: file.destination+name+"-300x300."+extention,
@@ -215,6 +216,7 @@ router.post('/:id/upload', function (req, res, next) {
                     if (err) throw err;
                   
                     image300 = name+"-300x300."+extention;
+                
 
                     var attachment = new Attachments(file);
                     attachment.large = image1024;
@@ -225,78 +227,22 @@ router.post('/:id/upload', function (req, res, next) {
                             console.log(_err)
                             return res.send(err);
                         }
-                    
+           
+                        imageAttachmentId = attachment._id
                         images.push(attachment._id)
                         callback();
                         
                     });
                 });
             });
-
-
-            /*easyimg.thumbnail({
-                src: file.path, 
-                dst: file.destination+name+"-1024x1024."+extention,
-                width:1024, height:1024,
-                x:0, y:0
-            }, function(err, image) {
-                console.log(err)
-                if (err) throw err;
-                console.log('Thumbnail created');
-
-                image1024 = image;
-                console.log("image1024",image1024);
-
-                easyimg.thumbnail({
-                    src: file.path, 
-                    dst: file.destination+name+"-318x220."+extention,
-                    width:318, height:220,
-                    x:0, y:0
-                }, function(err, image) {
-                    if (err) throw err;
-                    console.log('thumbnail created');
-                    
-                    image318 = image;
-                    console.log("image318",image318);
-
-                    var attachment = new Attachments(file);
-                    attachment.uploaded_by = req.body.uploaded_by;
-                    attachment.save(function(err) {
-                        if (err) {
-                            console.log(_err)
-                            return res.send(err);
-                        }
-                    
-                        //console.log(file)
-                        images.push(attachment._id)
-                        callback();
-                        
-                    });
-                });
-            });*/
-
-            /*
-            var attachment = new Attachments(file);
-            attachment.uploaded_by = req.body.uploaded_by;
-            attachment.save(function(err) {
-                if (err) {
-                    console.log(_err)
-                    return res.send(err);
-                }
-            
-                //console.log(file)
-                images.push(attachment._id)
-                callback();
-                
-            });
-            */
 
         }, function(err) {
             if (err) return next(err);
-//console.log(images)
-            var update = { $pushAll: {images: images } }
+
+            //var update = { $pushAll: {images: images } }
+            var update = { $push: {images: imageAttachmentId } }
             Posts.findOneAndUpdate({_id: req.body.parent}, update, {}, function (err, post, raw) {
-                //console.log(err, post, raw)
+                console.log(err, post, raw)
                 if (err) 
                     return res.json({sucess:false, err:err});
                 //console.log(post)
