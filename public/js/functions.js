@@ -153,7 +153,7 @@ function bindEvents(){
                 location.reload();
             }
         });
-	});x
+	});
 
 	$("html").on('click', 'a.ajax', function(event) {
 		event.preventDefault();
