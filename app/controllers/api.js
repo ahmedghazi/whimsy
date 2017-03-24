@@ -185,15 +185,15 @@ router.post('/planning/:id/comment', function (req, res, next) {
 
 var uploadAny = upload.any();
 router.post('/:id/upload', function (req, res, next) {
-    
-    //console.log(req.files)
+    console.log("/:id/upload")
+    console.log(req.files)
     uploadAny(req, res, function (err) {
         if (err) return next(err);
 
         var images = [];
         var imageAttachmentId = '';
         async.each(req.files, function(file, callback) { 
-            //console.log(file)
+            console.log(file)
             var image1024,image300;
 
             var name = file.filename.split(".")[0];
